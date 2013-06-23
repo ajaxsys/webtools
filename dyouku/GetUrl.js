@@ -11,16 +11,27 @@ javascript: void((
             var result_txt = "",
                 result_map = {};
             jQuery('a').each(function () {
-                if (jQuery(this).attr("href") && jQuery(this).attr("title") && jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/") == 0) {
+                if (jQuery(this).attr("href") && jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/") == 0) {
+					var key = "";
+					if (jQuery(this).attr("title")) {
+	                    key = jQuery(this).attr("title");
+					} else {
+						key = jQuery(this).text();
+						// If no title and no link text - only numbers
+						if (/[0-9]+/.test(key)) {
+							key = document.title.split("_")[0].split("-")[0]+"_"+key;
+						}
+					}
 					// The special regular expression characters in JavaScript are: . \ + * ? [ ^ ] $ ( ) { } = ! < > | : -
-                    result_map[jQuery(this).attr("title").replace(/\s+/g, "_").replace(/\?/g, "？").replace(/:/g, "：").replace(/!/g, "！").replace(/\/|\¥|\%|\*|\||\"|\<|\>/g,"")] = jQuery(this).attr("href")
+					key = key.replace(/\s+/g, "_").replace(/\?/g, "？").replace(/:/g, "：").replace(/!/g, "！").replace(/\/|\¥|\%|\*|\||\"|\<|\>/g,"");
+					result_map[key] = jQuery(this).attr("href");
                 }
             });
             for (var r in result_map) {
                 result_txt += r + "\t-#-\t" + result_map[r] + "\n"
             }
             $("#result_of_videos_links").remove();
-            jQuery("body").prepend("<div id='result_of_videos_links' style='background-color: #bde9ba; position: absolute; top: 10px; left:10px;'><textarea id='result_to_copy'></textarea>");
+            jQuery("body").prepend("<div id='result_of_videos_links' style='background-color: #bde9ba; position: fixed; top: 10px; left:10px;'><textarea id='result_to_copy'></textarea>");
             var $result_box = jQuery("#result_to_copy");
             $result_box.val(result_txt);
             $result_box.mousedown(function (event) {
