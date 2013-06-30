@@ -1,4 +1,7 @@
 #!/bin/sh
+############################################
+# Check params & init
+############################################
 cd "$(dirname "$0")"
 
 inputFile=$1
@@ -25,6 +28,64 @@ mkdir -p download
 
 SPLIT="	-#-	"
 
+############################################
+# Check if a file is downloading.
+# If no download speed in specified period, it will be canceled
+############################################
+function waitOrCancel() {
+  thisPID=$1
+  outFile=$2
+  echo "Process id is ${thisPID} , target file is ${outFile}"
+
+  #Get file size
+  if [ ! -f $outFile ]; then
+    oldSize=0
+  else
+    oldSize=`stat -c %s $outFile`
+  fi
+  #echo " [DEBUG]Size 1: $oldSize"
+
+  #If file size no change in WAIT_SECONDS*WAIT_MAX_COUNT, and process live, kill process
+  WAIT_SECONDS=5
+  WAIT_MAX_COUNT=12 
+  waitCount=-1
+
+  while :
+  do
+
+    #If all ready downloaded (no process)
+    if ! ps -p $thisPID > /dev/null
+    then
+      echo " Download completed"
+      break
+    fi
+
+    sleep $WAIT_SECONDS
+
+    newSize=`stat -c %s $outFile`
+    #echo " [DEBUG]Size 1: $oldSize -VS- Size 2: $newSize"
+
+    if [ $oldSize -eq $newSize ]; then
+        ((waitCount++))
+        if [ $waitCount -lt $WAIT_MAX_COUNT ]; then
+           continue
+        else
+           echo "[ERROR]Donwload canceled. Process $thisPID is killed , cause it do NOT have download speed. File: $outFile" 
+           kill $thisPID
+           break
+        fi
+    else
+        #echo " [DEBUG]downloading..."
+        waitCount=-1
+        oldSize=$newSize
+    fi
+  done
+}
+
+
+####################################
+# main
+####################################
 while read line
 do
   #ignore blank line or line withou splitter
@@ -46,7 +107,7 @@ do
   videoDownloadPath="download/${name}/"
   mkdir -p $videoDownloadPath
 
-  # Step1. Analize youku url
+  ##### Step1. Analize youku url
   # super high
   echo "Get $name (default super high)"
   echo "http://www.flvcd.com/parse.php?kw=${url}${pwd}&flag=one&format=super"
@@ -76,11 +137,10 @@ do
     continue
   fi
 
-
-  # abstract urls
+  # extract urls
   egrep 'href="http://f.youku.com/[0-9a-zA-Z?/_=-]+"' -o $tmpFile > $tmpFile-urls
 
-  # Step2. Change to download command
+  ##### Step2. Change to download command
   lineNo=0
   # Get all line, with trim
   allLines=`cat $tmpFile-urls | wc -l | tr -d " "`
@@ -108,11 +168,13 @@ do
 
     echo "$lineNo / $allLines : $downloadUrl"
     curl -C - -o "$videoDownloadPath${lineNoWithPadding}.${flvOrMp4}" -L $downloadUrl &
-    wait
+    #Wait response(speed up re-download)
+    sleep 0.33
+    waitOrCancel $! "$videoDownloadPath${lineNoWithPadding}.${flvOrMp4}"
 
   done <$tmpFile-urls
 
-  #merge this video
+  #### Step3. merge video parts
   #escape shell file name. escaped char:' !&$()'
   #note: x=$(printf '%q' "$x") not work in UTF-8
   #fileToBeMerged=`echo "download/${name}*.flv" | sed -E 's/([ \!\&\$\(\)])/\\\1/g'`
