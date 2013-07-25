@@ -11,7 +11,10 @@ javascript: void((
             var result_txt = "",
                 result_map = {};
             jQuery('a').each(function () {
-                if (jQuery(this).attr("href") && jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/") == 0) {
+                if (jQuery(this).attr("href") && 
+                    (   jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/"     ) == 0 
+                     || jQuery(this).attr("href").indexOf("http://www.tudou.com/albumplay/") == 0)
+                   ) {
 					var key = "";
 					if (jQuery(this).attr("title")) {
 	                    key = jQuery(this).attr("title");
@@ -31,7 +34,7 @@ javascript: void((
                 result_txt += r + "\t-#-\t" + result_map[r] + "\n"
             }
             $("#result_of_videos_links").remove();
-            jQuery("body").prepend("<div id='result_of_videos_links' style='background-color: #bde9ba; position: fixed; top: 10px; left:10px;'><textarea id='result_to_copy'></textarea>");
+            jQuery("body").prepend("<div id='result_of_videos_links' style='background-color: #bde9ba; position: fixed; top: 10px; left:10px; z-index:9999;'><textarea id='result_to_copy'></textarea>");
             var $result_box = jQuery("#result_to_copy");
             $result_box.val(result_txt);
             $result_box.mousedown(function (event) {
