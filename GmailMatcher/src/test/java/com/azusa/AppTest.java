@@ -34,7 +34,7 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
-        String[] args = new String[] {"chuanlinyan@gmail.com","19830808","メールdeポイント","\\bhttp[s]*://?pmrd.rakuten.co.jp/\\?r=.+?p=.+?u=.+?\\b"};
+        String[] args = new String[] {"yan@gmail.com","1983","メールdeポイント","\\bhttp[s]*://?pmrd.rakuten.co.jp/\\?r=.+?p=.+?u=.+?\\b"};
         try {
 			GmailMatcher.main(args);
 		} catch (Exception e) {
