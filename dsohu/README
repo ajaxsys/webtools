@@ -1,0 +1,36 @@
+Use this tool to download vedios from chinese video site, from any country.
+
+===================================
+Usage:
+
+-Bookmarklet
+ 1 Compress GetUrl.js to one-line-code and save it as a bookmark on browser.
+ 2 Open youku, e.g: http://www.soku.com/search_video/q_helloworld
+ 3 Click the bookmarklet, a textarea with all video links will show 
+   at left-top window, with format: Video_Name	-#-	url 
+ 4 Save above links to a file. e.g: inputUrlList
+
+-Shell
+ Usage: nohup ThisScriptName inputUrlList [password] > somelog &
+
+===================================
+Requirements:
+ python 2.5+
+ curl command
+
+===================================
+Notice:
+
+-Tested site:
+ * youku.com
+
+-Bookmarklet & Tested Browser:
+ * Chrome
+
+-Shell & Tested device:
+ * my book live (a perface NAS with jail-break apple tv 2)
+ * mac OS X 10.8.3
+
+===================================
+Thanks flvcd.com
+

@@ -1,0 +1,150 @@
+tcpdump -i en1 -X -s 500 host 114.80.201.183 and port 80
+
+
+./interface/parsem-flvcd_utf8.php?id=69525879&url=http%3A%2F%2Ftv.sohu.com%2F20130721%2Fn382187930.shtml%26format%3Dsuper&format=1
+
+http://www.flvcd.com/interface/parsem-flvcd_utf8.php?id=69525879&url=http%3A%2F%2Ftv.sohu.com%2F20130721%2Fn382187930.shtml%26format%3Dsuper&format=1
+
+rtmp url 解析 学习
+
+http://blog-en.jochen.hayek.name/2010/06/using-curl-for-streaming-flash-movies.html
+
+海贼王第605集[超清版]-0001	-#-	http://data.vod.itc.cn/tv/HUGE/BackUp/hadoop/20130721/909672_1248319_tv_S_120632_16832/909672_1248319_tv_S_120632_16832_001.mp4&new=/134/104/FhMx8kezzba5mGKtF2s5G7.mp4
+海贼王第605集[超清版]-0002	-#-	http://data.vod.itc.cn/tv/HUGE/BackUp/hadoop/20130721/909672_1248319_tv_S_120632_16832/909672_1248319_tv_S_120632_16832_002.mp4&new=/7/219/Q2FSLIRKl2V35VyfndMtm4.mp4
+海贼王第605集[超清版]-0003	-#-	http://data.vod.itc.cn/tv/HUGE/BackUp/hadoop/20130721/909672_1248319_tv_S_120632_16832/909672_1248319_tv_S_120632_16832_003.mp4&new=/96/218/HUsBAGsq1O82HxetRrXBU2.mp4
+海贼王第605集[超清版]-0004	-#-	http://data.vod.itc.cn/tv/HUGE/BackUp/hadoop/20130721/909672_1248319_tv_S_120632_16832/909672_1248319_tv_S_120632_16832_004.mp4&new=/47/157/rCZf47SyVC1UFrxWxpb8k7.mp4
+海贼王第605集[超清版]-0005	-#-	http://data.vod.itc.cn/tv/HUGE/BackUp/hadoop/20130721/909672_1248319_tv_S_120632_16832/909672_1248319_tv_S_120632_16832_005.mp4&new=/65/6/d6pcHjIKBreIadxbOG4Sx3.mp4
+
+
+
+
+
+data.vod.itc.cn==220.181.61.229
+
+
+=======Step1=======
+OR，Direct(Need login?)
+http://share.vrs.sohu.com/1103105/v.swf&autoplay=false"
+
+
+七龙珠Z第203集[高清版]
+http://tv.sohu.com/20130423/n373710167.shtml
+-->
+http://www.flvcd.com/interface/parsem-flvcd_utf8.php?id=73631590&format=high&url=http://tv.sohu.com/20130423/n373710167.shtml
+
+上記と同様
+http://www2.flvcd.com/diy_utf8.php?id=73631590
+	0x0030:  0def 06d9 4745 5420 2f64 6979 5f75 7466  ....GET./diy_utf
+	0x0040:  382e 7068 703f 6964 3d37 3336 3331 3539  8.php?id=7363159
+	0x0050:  3020 4854 5450 2f31 2e30 0d0a 4163 6365  0.HTTP/1.0..Acce
+
+Result:
+七龙珠Z第203集[高清版] 0 http://tv.sohu.com/20130423/n373710167.shtml&format=high high <$> 七龙珠Z第203集[高清版]-0001
+搜狐 http://data.vod.itc.cn/tv/20130423/815824-1103105-bcee64fd-95af-4f21-9d6d-2d7bfda82eb3.mp4&new=/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4 0001 aHR0cDovLzYxLjEzNS4xODMuNTAvP3Byb3Q9MiZ0PTAuMjAzMTY0NiZmaWxlPQ== aHR0cDovL2hvdC52cnMuc29odS5jb20vdnJzX2ZsYXNoLmFjdGlvbj92aWQ9MTEwMzEwNQ== SOHU 1 5 <&> <$> 七龙珠Z第203集[高清版]-0002
+
+搜狐 http://data.vod.itc.cn/tv/20130423/815824-1103105-89244084-899b-4d8e-85ab-0a33a4e3b96d.mp4&new=/63/227/QY9uA3h4wlpT7hMqI17rk.mp4 0001 aHR0cDovLzYxLjEzNS4xODMuNTAvP3Byb3Q9MiZ0PTAuMjAzMTY0NiZmaWxlPQ== aHR0cDovL2hvdC52cnMuc29odS5jb20vdnJzX2ZsYXNoLmFjdGlvbj92aWQ9MTEwMzEwNQ== SOHU 2 5 <&> <$> 七龙珠Z第203集[高清版]-0003
+
+搜狐 http://data.vod.itc.cn/tv/20130423/815824-1103105-638adfae-556c-47fd-b6c8-1251e51ef070.mp4&new=/212/168/2mibn19uT46BSwSrczzm62.mp4 0001 aHR0cDovLzYxLjEzNS4xODMuNTAvP3Byb3Q9MiZ0PTAuMjAzMTY0NiZmaWxlPQ== aHR0cDovL2hvdC52cnMuc29odS5jb20vdnJzX2ZsYXNoLmFjdGlvbj92aWQ9MTEwMzEwNQ== SOHU 3 5 <&> <$> 七龙珠Z第203集[高清版]-0004
+
+搜狐 http://data.vod.itc.cn/tv/20130423/815824-1103105-d3ea8130-c909-49d8-a6a8-f259d39f6694.mp4&new=/111/225/2oryRGJYlLOx4sinPD7bs6.mp4 0001 aHR0cDovLzYxLjEzNS4xODMuNTAvP3Byb3Q9MiZ0PTAuMjAzMTY0NiZmaWxlPQ== aHR0cDovL2hvdC52cnMuc29odS5jb20vdnJzX2ZsYXNoLmFjdGlvbj92aWQ9MTEwMzEwNQ== SOHU 4 5 <&> <$> 七龙珠Z第203集[高清版]-0005
+
+搜狐 http://data.vod.itc.cn/tv/20130423/815824-1103105-2fad1f7f-cf27-4320-bca1-56aaddba4c55.mp4&new=/220/33/RzVQ6V2ErVf6RWTXbmcPR2.mp4 0001 aHR0cDovLzYxLjEzNS4xODMuNTAvP3Byb3Q9MiZ0PTAuMjAzMTY0NiZmaWxlPQ== aHR0cDovL2hvdC52cnMuc29odS5jb20vdnJzX2ZsYXNoLmFjdGlvbj92aWQ9MTEwMzEwNQ== SOHU 5 5 <&>
+
+
+======Step2 : Get Step1: 1103105 
+
+http://hot.vrs.sohu.com/vrs_flash.action?vid=1103105
+
+hot.vrs.sohu.com
+
+	0x0020:  5018 ffff 36e2 0000 4745 5420 2f76 7273  P...6...GET./vrs
+	0x0030:  5f66 6c61 7368 2e61 6374 696f 6e3f 7669  _flash.action?vi
+	0x0040:  643d 3131 3033 3130 3520 4854 5450 2f31  d=1103105.HTTP/1
+
+Result:
+{"preview":2,"holiday":0,"p2pflag":1200,"isp2p":0,"id":1103105,"prot":2,"ct":4002,"nt":2,"allot":"61.135.183.50","reserveIp":"220.181.61.212","vt":1,"tn":5,"sp":1024,"status":1,"wexp":0,"play":1,"pL":30,"url":"http://tv.sohu.com/20130423/n373710167.shtml","uS":-1,"fms":0,"fee":0,"caid":16,"caname":"动漫","pid":5269311,"isdl":1,"ispv":0,"isNewsLogo":0,"preload":0,"systype":0,"age":"13岁-18岁","year":1989,"areaId":31,"mainActorId":"46892;35445;18588;36869;111811;21106;17534","act":"","tv_application_time":"2013-04-23 13:34:00","catcode":"115102;115103;115104;115132","pvpic":{"big":"http://photocdn.sohu.com/pic/130423/49645238-6908-451b-b2d5-698fdd6fc4dfV10_120_88_15.jpg","small":"http://photocdn.sohu.com/pic/130423/49645238-6908-451b-b2d5-698fdd6fc4dfV10_60_44_15.jpg"},"tvid":815824,"islpc":0,"syst":1375527934560,"data":{"tvName":"七龙珠Z第203集","subName":"","ch":"tv","fps":25,"ipLimit":1,"width":640,"clipsURL":["http://data.vod.itc.cn/tv/20130423/815824-1103105-bcee64fd-95af-4f21-9d6d-2d7bfda82eb3.mp4","http://data.vod.itc.cn/tv/20130423/815824-1103105-89244084-899b-4d8e-85ab-0a33a4e3b96d.mp4","http://data.vod.itc.cn/tv/20130423/815824-1103105-638adfae-556c-47fd-b6c8-1251e51ef070.mp4","http://data.vod.itc.cn/tv/20130423/815824-1103105-d3ea8130-c909-49d8-a6a8-f259d39f6694.mp4","http://data.vod.itc.cn/tv/20130423/815824-1103105-2fad1f7f-cf27-4320-bca1-56aaddba4c55.mp4"],"version":1,"clipsBytes":[23566111,17034344,15523568,15137434,18219819],"num":203,"coverImg":"http://photocdn.sohu.com/20130422/vrs815824.jpg","height":480,"totalDuration":1480.876,"totalBytes":89532452,"clipsDuration":[299.722,297.587,295.543,298.003,290.12],"relativeId":1103106,"norVid":1103106,"highVid":1103105,"superVid":0,"oriVid":0,"totalBlocks":5,"ck":["gHIzvlkGwxpkV0nhsa5yzCFpfiuAZF2M","gHIzvlkGwxpkV0nhsa5yzCFpfiuAZF2M","gHIzvlkGwxpkV0nhsa5yzCFpfiuAZF2M","gHIzvlkGwxpkV0nhsa5yzCFpfiuAZF2M","gHIzvlkGwxpkV0nhsa5yzCFpfiuAZF2M"],"hc":["MLUAPS26JIZPPBM3NQR6SBDNIMWJZCVB","YLICZWH33WSNQKDVRUHSMTM4NUX5U2NG","RZD3CHF4ZOU3DTOL5CREYA6WNWLBOHMY","PURFTJ3Y26OZRTBXJHTC43EAMOUKLRLY","DAUNYBH55LX5KN65RA2DENM7XKFG6SSQ"],"su":["/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4","/63/227/QY9uA3h4wlpT7hMqI17rk.mp4","/212/168/2mibn19uT46BSwSrczzm62.mp4","/111/225/2oryRGJYlLOx4sinPD7bs6.mp4","/220/33/RzVQ6V2ErVf6RWTXbmcPR2.mp4"],"sT":0,"eT":0,"eP":null,"adpo":null,"xlClipsDuration":[0],"xlClipsBytes":[0],"xlClipsUrl":null},"oriType":-1,"fnor":0,"keyword":"七龙珠Z;七龙珠Z第203集;七龙珠Z全集高清;七龙珠Z动漫;","company":"","plcatid":16,"cmscat":"251366993;271792145;271792198;373031978;373710167","hcap":1,"scap":[{"ver":1,"cpath":"http://tv.sohu.com/upload/srt/5269311_chs_506c8214-0892-4064-898e-d83c58d349c1.srt"}]}
+
+
+
+======Step3 : Get Step2: clipsURL 
+
+http://220.181.61.212/?prot=2&t=0.94206&file=tv/20130423/815824-1103105-bcee64fd-95af-4f21-9d6d-2d7bfda82eb3.mp4&new=/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4
+
+
+220.181.61.212
+
+	0x0020:  5018 4000 3473 0000 4745 5420 2f3f 7072  P.@.4s..GET./?pr
+	0x0030:  6f74 3d32 2674 3d30 2e39 3432 3036 2666  ot=2&t=0.94206&f
+	0x0040:  696c 653d 7476 2f32 3031 3330 3432 332f  ile=tv/20130423/
+	0x0050:  3831 3538 3234 2d31 3130 3331 3035 2d62  815824-1103105-b
+	0x0060:  6365 6536 3466 642d 3935 6166 2d34 6632  cee64fd-95af-4f2
+	0x0070:  312d 3964 3664 2d32 6437 6266 6461 3832  1-9d6d-2d7bfda82
+	0x0080:  6562 332e 6d70 3426 6e65 773d 2f35 312f  eb3.mp4&new=/51/
+	0x0090:  3138 312f 3175 3836 6b57 7161 3868 5245  181/1u86kWqa8hRE
+	0x00a0:  3141 4b33 4969 5348 4c32 2e6d 7034 2048  1AK3IiSHL2.mp4.H
+	0x00b0:  5454 502f 312e 300d 0a41 6363 6570 743a  TTP/1.0..Accept:
+
+
+Result:
+	0x00e0:  303a 3030 3a30 3020 474d 540d 0a0d 0a68  0:00:00.GMT....h
+	0x00f0:  7474 703a 2f2f 6e65 7766 6c76 2e73 6f68  ttp://newflv.soh
+	0x0100:  752e 6363 6773 6c62 2e6e 6574 2f7c 3632  u.ccgslb.net/|62
+	0x0110:  337c 3132 362e 3336 2e31 3339 2e32 3139  3|126.36.139.219
+	0x0120:  7c2d 4a74 6878 7562 6f61 4146 4c36 5a69  |-JthxuboaAFL6Zi
+	0x0130:  7038 755f 375a 516b 3665 4838 4256 3959  p8u_7ZQk6eH8BV9Y
+	0x0140:  637c 317c 307c 317c 3533                 c|1|0|1|53
+
+http://newflv.sohu.ccgslb.net/|623|126.36.139.219|-JthxuboaAFL6Zip8u_7ZQk6eH8BV9Yc|1|0|1|53
+
+http://newflv.sohu.ccgslb.net/|623|126.36.139.219|xOLGG-RUMfHuCMh1tqYjQ0pUmL_A8kRz|1|0|1|53
+http://newflv.sohu.ccgslb.net/|623|126.36.139.219|pvEKgzb7n01hNbHzj129nDJfZwLM1B4x|1|0|1|53
+
+
+======Step4: ???
+
+http://newsflv.sohu.rewrite.ccgslb.com/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4?key=LDeHkxUux9APRX1MDjszc6fE2d0sN32b
+http://newsflv.sohu.rewrite.ccgslb.com/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4?key=pvEKgzb7n01hNbHzj129nDJfZwLM1B4x
+
+newsflv.sohu.rewrite.ccgslb.com
+
+
+
+
+
+
+	0x0020:  5018 4000 083a 0000 4745 5420 2f35 312f  P.@..:..GET./51/
+	0x0030:  3138 312f 3175 3836 6b57 7161 3868 5245  181/1u86kWqa8hRE
+	0x0040:  3141 4b33 4969 5348 4c32 2e6d 7034 3f6b  1AK3IiSHL2.mp4?k
+	0x0050:  6579 3d4c 4465 486b 7855 7578 3941 5052  ey=LDeHkxUux9APR
+	0x0060:  5831 4d44 6a73 7a63 3666 4532 6430 734e  X1MDjszc6fE2d0sN
+	0x0070:  3332 6220 4854 5450 2f31 2e30 0d0a 4163  32b.HTTP/1.0..Ac
+
+
+======Step5: OK Get IT!
+
+http://newsflv.sohu.rewrite.ccgslb.com/61.160.228.32/sohu/2/212/168/2mibn19uT46BSwSrczzm62.mp4?key=J6ej4abrlKfhVKGuX2ovdmfb_tbq8MdUCDXGIQ
+
+
+	0x00d0:  0a4c 6f63 6174 696f 6e3a 2068 7474 703a  .Location:.http:
+	0x00e0:  2f2f 6e65 7773 666c 762e 736f 6875 2e72  //newsflv.sohu.r
+	0x00f0:  6577 7269 7465 2e63 6367 736c 622e 636f  ewrite.ccgslb.co
+	0x0100:  6d2f 3631 2e31 3630 2e32 3238 2e33 322f  m/61.160.228.32/
+	0x0110:  736f 6875 2f32 2f32 3132 2f31 3638 2f32  sohu/2/212/168/2
+	0x0120:  6d69 626e 3139 7554 3436 4253 7753 7263  mibn19uT46BSwSrc
+	0x0130:  7a7a 6d36 322e 6d70 343f 6b65 793d 4a36  zzm62.mp4?key=J6
+	0x0140:  656a 3461 6272 6c4b 6668 564b 4775 5832  ej4abrlKfhVKGuX2
+	0x0150:  6f76 646d 6662 5f74 6271 384d 6455 4344  ovdmfb_tbq8MdUCD
+	0x0160:  5847 4951 2e2e 0d0a 5377 6974 6368 3a46  XGIQ....Switch:F
+	0x0170:  5343 530d 0a0d 0a                        SCS....
+
+6d7FCwDnk0jfn_a7vVqZijcE7slqisJtCOMnAw..
+
+OK
+
+curl -v http://newsflv.sohu.rewrite.ccgslb.com/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4?key=u-ZlVvObk1_8sAKKMLyD4AF5Hye2isZbhYTx6w
+
+try
+
+curl -v http://newsflv.sohu.rewrite.ccgslb.com/51/181/1u86kWqa8hRE1AK3IiSHL2.mp4?key=_aiz3dLis3k9fhhQlaRd2EqwFC3eYzMO
+
+
