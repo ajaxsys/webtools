@@ -13,7 +13,8 @@ javascript: void((
             jQuery('a').each(function () {
                 if (jQuery(this).attr("href") && 
                     (   jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/"     ) == 0 
-                     || jQuery(this).attr("href").indexOf("http://www.tudou.com/albumplay/") == 0)
+                     || jQuery(this).attr("href").indexOf("http://www.tudou.com/albumplay/") == 0
+                     || jQuery(this).attr("href").indexOf("http://www.letv.com/ptv/vplay/" ) == 0)
                    ) {
 					var key = "";
 					if (jQuery(this).attr("title")) {

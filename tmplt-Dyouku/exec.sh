@@ -138,7 +138,8 @@ do
   fi
 
   # extract urls
-  egrep 'href="http://f.youku.com/[0-9a-zA-Z?/_=-]+"' -o $tmpFile > $tmpFile-urls
+  egrep 'href="http://f.youku.com/.+?"' -o $tmpFile > $tmpFile-urls
+  egrep 'href="http://.+host=www_letv_com"' -o $tmpFile >> $tmpFile-urls
 
   ##### Step2. Change to download command
   lineNo=0
@@ -150,7 +151,7 @@ do
   fi
 
   #Check flv or mp4
-  flvOrMp4=`grep "/flv/" $tmpFile-urls | wc -l | tr -d " "`
+  flvOrMp4=`grep "\bflv\b" $tmpFile-urls | wc -l | tr -d " "`
   if [ $flvOrMp4 -gt 0 ]; then
     flvOrMp4='flv'
   else
