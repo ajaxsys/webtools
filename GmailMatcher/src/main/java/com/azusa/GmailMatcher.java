@@ -20,7 +20,7 @@ import javax.mail.search.FlagTerm;
 // 2. Use chrome to open: chrome ouputFile.html
 public class GmailMatcher {
 	private static Pattern p;
-	private final static int MAX_MAIL = 2;
+	private final static int MAX_MAIL = 20;
 	private static final boolean IS_OUT_DEBUG = true;
 
 	/**
