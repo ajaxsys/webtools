@@ -67,7 +67,7 @@ function waitOrCancel() {
     newSize=`stat -c %s "$outFile"`
     #echo " [DEBUG]Size 1: $oldSize -VS- Size 2: $newSize"
 
-    if [ $oldSize -eq $newSize ]; then
+    if [ "$oldSize" -eq "$newSize" ]; then
         ((waitCount++))
         if [ $waitCount -lt $WAIT_MAX_COUNT ]; then
            continue
@@ -110,7 +110,7 @@ rawurlencode() {
 # or 
 # <a href="ftp://xxx">FileName</a>
 # and more protocal which cURL supports
-regex="^.*<a href=['\"]?([^:]+:\/\/[^'\">]+)['\"]?>([^<]+)</a>.*$"
+regex="^.*<a href=['\"]?([^:]+:\/\/[^'\">]+)['\"]?>([^<'\"]+)['\"]?</a>.*$"
 lineNo=0
 
 while read line
@@ -127,22 +127,27 @@ do
   url="${BASH_REMATCH[1]}"
   fileName="${BASH_REMATCH[2]}"
 
+  
+  #echo "URL: ${url}END"
   #Encode URL
   # downloadUrl=$( rawurlencode $url )
   #encode kanji only, ingnore :/_\?=.,&-
-  downloadUrl=`echo $url | perl -p -e 's/([^A-Za-z0-9:\/_\?=\.,&\-])/sprintf("%%%02X", ord($1))/seg'`
+  downloadUrl=`echo -n $url | perl -p -e 's/([^A-Za-z0-9:\/_\?=\.,&\-])/sprintf("%%%02X", ord($1))/seg'`
+  #downloadUrl=$url
 
   #Repalce NG chars in file name
-  fileName=`echo $fileName | sed -e "s/'\?\/\\:/_/g"`
+  fileName=`echo $fileName | sed -e "s/[\" '\?\/\\:]/_/g"`
+  #fileName=`echo $fileName | sed -e "s/ /\\ /g"`
 
   #echo "line    -->  $line"
   #echo "file    -->  $fileName"
   #echo "encoded -->  $downloadUrl"
   echo "$lineNo : $fileName : $downloadUrl"
 
-  curl -C - -o "$OUT_FOLDER/$fileName" -L $downloadUrl &
+  curl -C - -o "${OUT_FOLDER}/${fileName}" -L "${downloadUrl}" -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Connection: keep-alive' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: ja,en-US;q=0.8,en;q=0.6,zh;q=0.4' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36' &
+
   #Wait response(speed up re-download)
   sleep 0.33
-  waitOrCancel $! "$OUT_FOLDER/$fileName"
+  waitOrCancel $! "${OUT_FOLDER}/${fileName}"
 
 done < $inputFile 
