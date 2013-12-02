@@ -41,8 +41,8 @@ function loadJQuery( window, document, req_version, callback, $, script, done, r
     // Add the script element to either the head or body, it doesn't matter.
     appendTag(script);
   } else {
-    console.log("Use existed jQuery. (Not load jQuery)");
-    callback($, done=0 );
+  	console.log("Use existed jQuery. (Not load jQuery)");
+  	callback($, done=0 );
   }
   
 }
@@ -119,7 +119,7 @@ function initOutput() {
     $commonDIV.append($commonTxtArea).appendTo("body");
 }
 function ln(s){
-    return s+"\n";
+	return s+"\n";
 }
 function out(str) {
     if ($("#__result_of_common__ouput__").length===0)
@@ -134,35 +134,52 @@ function execute(){
 ///////////////////////////
 
 
-    // Get youku links, and format to Dyouku
-    var result_txt = "",
-        result_map = {};
+// Get baidupan links, and format to Dbaidu
+var result = "";
 
-    $('a').each(function () {
-        if (jQuery(this).attr("href") && 
-            (   jQuery(this).attr("href").indexOf("http://v.youku.com/v_show/"     ) == 0 
-             || jQuery(this).attr("href").indexOf("http://www.tudou.com/albumplay/") == 0
-             || jQuery(this).attr("href").indexOf("http://www.letv.com/ptv/vplay/" ) == 0)
-           ) {
-            var key = "";
-            if (jQuery(this).attr("title")) {
-                key = jQuery(this).attr("title");
-            } else {
-                key = jQuery(this).text();
-                // If no title and no link text - only numbers
-                if (/[0-9]+/.test(key)) {
-                    key = document.title.split("_")[0].split("-")[0]+"_"+key;
-                }
-            }
-            // The special regular expression characters in JavaScript are: . \ + * ? [ ^ ] $ ( ) { } = ! < > | : -
-            key = key.replace(/\s+/g, "_").replace(/\?/g, "？").replace(/:/g, "：").replace(/!/g, "！").replace(/\/|\¥|\%|\*|\||\"|\<|\>/g,"");
-            result_map[key] = jQuery(this).attr("href");
-        }
-    });
-    for (var r in result_map) {
-        result_txt += r + "\t-#-\t" + result_map[r] + "\n"
-    }
-    out(result_txt);
+;(function($){
+var MAKE_SURE = "### Before download: Make sure move files to /apps/bpcs_uploader ###";
+var folders=$("#dirPath").text().replace(/\s+>\s+/g,">").split(">");
+var i = 0,isBpcs = false;
+for (i in folders) {
+	// Remove path until bpcs_uploader folder
+	if (folders[i].indexOf("bpcs_uploader")>=0) {
+		isBpcs = true;
+	}
+	if (isBpcs)
+		break;
+}
+if (!isBpcs) {
+	result+=ln("# [ERROR]"+MAKE_SURE);
+	return;
+}
+//delete folders[i];
+folders.splice(0,++i);
+result+=ln("# Current folder: "+ folders);
+
+var dir = folders.join("/");
+if (dir) dir = "/"+dir;
+
+result+=ln("mkdir -p 'output" + dir+"'");
+
+// Baidu Pan hide datas in DOM
+var cache = FileUtils.getLocalCache();
+
+var files = cache._mCache["/apps/bpcs_uploader"+ dir ];
+result+=ln("# Files number: "+ files.length);
+
+for (var i=0; i<files.length; i++) {
+	var info = files[i];
+    if (info.isdir===0) {
+		result+=ln("./bpcs_uploader.php download 'output"+dir+"/"+info.server_filename +"' '"+dir+"/"+info.server_filename+"'");
+	} else {
+		result+=ln("# [WARN] ignore dir `"+ info.server_filename+ "`. Please go into the folder, and re-run this script. " );
+	}
+}
+
+})(jQuery);
+
+out(result);
 
 /////////////////////////// End customize code
 }
