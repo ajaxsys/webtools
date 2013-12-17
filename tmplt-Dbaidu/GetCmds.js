@@ -119,7 +119,7 @@ function initOutput() {
     $commonDIV.append($commonTxtArea).appendTo("body");
 }
 function ln(s){
-	return s+"\n";
+	return s+'\n';
 }
 function out(str) {
     if ($("#__result_of_common__ouput__").length===0)
