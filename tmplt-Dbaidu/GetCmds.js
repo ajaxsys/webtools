@@ -1,5 +1,5 @@
 
-// Compress by http://javascriptcompressor.com/
+// Compress to bookmarklet by http://javascriptcompressor.com/
 javascript:void(function(window,document){
 
 loadJQuery( window, document,
@@ -165,15 +165,9 @@ folders.splice(0,++i);
 var lastPath;
 for (var i in cache._mCache){
     lastPath = i
-    console.log('Cache paths: ',lastPath);
-
 }
-folders = lastPath.replace('/apps/bpcs_uploader','');
-result+=ln("# Current folder: "+ folders);
-
-var dir = folders;
-if (dir) dir = "/"+dir;
-
+dir = lastPath.replace('/apps/bpcs_uploader','');
+result+=ln("# Current folder: "+ dir);
 result+=ln("mkdir -p 'output" + dir+"'");
 
 
