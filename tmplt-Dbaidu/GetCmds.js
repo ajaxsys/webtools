@@ -119,7 +119,7 @@ function initOutput() {
     $commonDIV.append($commonTxtArea).appendTo("body");
 }
 function ln(s){
-	return s+"\n";
+	return s+"\n";
 }
 function out(str) {
     if ($("#__result_of_common__ouput__").length===0)
@@ -139,6 +139,11 @@ var result = "";
 
 ;(function($){
 var MAKE_SURE = "### Before download: Make sure move files to /apps/bpcs_uploader ###";
+// Baidu Pan hide datas in DOM
+
+var cache = FileUtils.getLocalCache();
+
+/*
 var folders=$("#dirPath").text().replace(/\s+>\s+/g,">").split(">");
 var i = 0,isBpcs = false;
 for (i in folders) {
@@ -155,17 +160,25 @@ if (!isBpcs) {
 }
 //delete folders[i];
 folders.splice(0,++i);
+*/
+
+var lastPath;
+for (var i in cache._mCache){
+    lastPath = i
+    console.log('Cache paths: ',lastPath);
+
+}
+folders = lastPath.replace('/apps/bpcs_uploader','');
 result+=ln("# Current folder: "+ folders);
 
-var dir = folders.join("/");
+var dir = folders;
 if (dir) dir = "/"+dir;
 
 result+=ln("mkdir -p 'output" + dir+"'");
 
-// Baidu Pan hide datas in DOM
-var cache = FileUtils.getLocalCache();
 
-var files = cache._mCache["/apps/bpcs_uploader"+ dir ];
+
+var files = cache._mCache[lastPath];
 result+=ln("# Files number: "+ files.length);
 
 for (var i=0; i<files.length; i++) {
