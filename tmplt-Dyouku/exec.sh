@@ -138,7 +138,7 @@ do
   fi
 
   # extract urls
-  egrep 'href="http://f.youku.com/.+?"' -o $tmpFile > $tmpFile-urls
+  egrep 'href="http://[a-zA-Z].youku.com/.+?"' -o $tmpFile > $tmpFile-urls
   egrep 'href="http://.+host=www_letv_com"' -o $tmpFile >> $tmpFile-urls
 
   ##### Step2. Change to download command
