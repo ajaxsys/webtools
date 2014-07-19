@@ -128,6 +128,25 @@ function out(str) {
 }
 
 
+function getURLParameter(name) {
+    return unescape(decodeURI(
+        (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.href)||[,null])[1]
+    ));
+}
+function getFileInfo($item) {
+    var r = {
+        isFile : false,
+        server_filename: null
+    };
+    r.server_filename = $('div.name[node-type=name]', $item).attr('title');
+    if ($item.attr('data-category')==='1'){
+        r.isFile = true;
+    }
+
+    return r;
+}
+
+
 function execute(){
 ///////////////////////////
 // More customize code here, can use $ & jQuery
@@ -141,7 +160,6 @@ var result = "";
 var MAKE_SURE = "### Before download: Make sure move files to /apps/bpcs_uploader ###";
 // Baidu Pan hide datas in DOM
 
-var cache = FileUtils.getLocalCache();
 
 /*
 var folders=$("#dirPath").text().replace(/\s+>\s+/g,">").split(">");
@@ -162,27 +180,48 @@ if (!isBpcs) {
 folders.splice(0,++i);
 */
 
+
+
+
 var lastPath;
+/* NG:20140719 baidu disable js scroll --> use native scroll
+
+var cache = FileUtils.getLocalCache();
+
 for (var i in cache._mCache){
     lastPath = i
 }
+*/
+lastPath = getURLParameter('path');
+if (!lastPath) {
+    console.log('[ERROR] NG URL, Please go into the folder, and re-run this script. ', lastPath);
+    return;
+}
+
 dir = lastPath.replace('/apps/bpcs_uploader','');
 result+=ln("# Current folder: "+ dir);
 result+=ln("mkdir -p 'output" + dir+"'");
 
 
+/* NG:20140719 baidu disable js scroll --> use native scroll
 
 var files = cache._mCache[lastPath];
-result+=ln("# Files number: "+ files.length);
+*/
+var $fileList = $('div.list[node-type=list]');
+var $files = $('div.item[node-type=item]');
 
-for (var i=0; i<files.length; i++) {
-	var info = files[i];
-    if (info.isdir===0) {
+result+=ln("# Files number: "+ $files.length);
+
+$files.each(function(){
+
+	var info = getFileInfo( $(this) );
+
+    if (info.isFile) {
 		result+=ln("./bpcs_uploader.php download 'output"+dir+"/"+info.server_filename +"' '"+dir+"/"+info.server_filename+"'");
 	} else {
 		result+=ln("# [WARN] ignore dir `"+ info.server_filename+ "`. Please go into the folder, and re-run this script. " );
 	}
-}
+});
 
 })(jQuery);
 
