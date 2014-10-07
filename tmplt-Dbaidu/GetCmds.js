@@ -129,9 +129,9 @@ function out(str) {
 
 
 function getURLParameter(name) {
-    return unescape(decodeURI(
+    return unescape(decodeURI(unescape(
         (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.href)||[,null])[1]
-    ));
+    )));
 }
 function getFileInfo($item) {
     var r = {
